@@ -12,3 +12,11 @@ npm i -D nodemon
 and configure the package.json
     "start": "node server.js",
     "dev": "nodemon server.js",
+
+## req.url = it gives route
+
+## req.method gives a method
+1) DELETE
+2) GET
+3) POST
+4) PUT
