@@ -4,6 +4,9 @@ const { getProducts, getProduct } = require('./controller/productController');
 const { requestMethods } = require('./shared/constant');
 const { getProdRegex } = require('./shared/regexUrl');
 const { urlMatch } = require('./shared/urlMatch');
+const { errorMessage } = require('./shared/errorHandlingfile');
+
+
 
 const server = http.createServer((req, res) => {
     const url = req.url;
@@ -16,11 +19,8 @@ const server = http.createServer((req, res) => {
     }
     else {
         res.writeHead(404, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify({
-            message: 'The route not found'
-        }));
+        res.end(JSON.stringify(errorMessage('The route')));
     }
-
 });
 
 const PORT = process.env.PORT || 5000;

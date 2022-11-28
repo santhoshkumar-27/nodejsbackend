@@ -1,4 +1,4 @@
-const getProdRegex = /\/api\/products\/([0-9]+)/;
+const getProdRegex = /\/api\/product\/([0-9]+)/;
 
 module.exports = {
     getProdRegex

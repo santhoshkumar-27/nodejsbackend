@@ -1,4 +1,6 @@
 const ProductModal = require('../models/productModels');
+const { errorMessage } = require('../shared/errorHandlingfile');
+
 /**
  * @descritpion Get all products from the collection of products
  * @param req
@@ -24,10 +26,14 @@ async function getProducts(req, res) {
  */
 async function getProduct(req, res, id) {
     try {
-        const products = await ProductModal.findAll();
-        const resultObj = products.find((product) => product.id === id);
-        res.writeHead(200, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(resultObj));
+        const resultObj = await ProductModal.findById(id);
+        if (resultObj) {
+            res.writeHead(200, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(resultObj));
+        } else {
+            res.writeHead(404, { 'Content-Type': 'application/json'});
+            res.end(JSON.stringify(errorMessage('Product')));
+        }
     } catch(e) {
         console.log(e)
     }
