@@ -1,4 +1,5 @@
 const products = require('../data/products.json');
+const {v4: uuidv4} = require('uuid')
 
 function findAll() {
     return new Promise((resolve, reject) => {
@@ -12,7 +13,18 @@ function findById(id) {
         resolve(resultObj);
     })
 }
+
+function create(payload) {
+    return new Promise((resolve, reject) => {
+        const newProduct = {
+            id: uuidv4(),
+            ...payload
+        }
+        resolve(resultObj);
+    })
+}
 module.exports = {
     findAll,
-    findById
+    findById,
+    create
 }

@@ -23,5 +23,8 @@
   "homepage": "https://github.com/santhoshkumar-27/nodejsbackend#readme",
   "devDependencies": {
     "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
   }
 }

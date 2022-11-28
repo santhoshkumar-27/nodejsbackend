@@ -20,3 +20,6 @@ and configure the package.json
 2) GET
 3) POST
 4) PUT
+
+### uuid 
+ npm install uuid

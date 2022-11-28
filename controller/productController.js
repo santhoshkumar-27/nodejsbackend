@@ -38,7 +38,24 @@ async function getProduct(req, res, id) {
         console.log(e)
     }
 }
+/**
+ * @descritpion Inserting new data to the product table
+ * @param req
+ * @param res
+ * @returns Inserted Data with Id
+ */
+async function createProduct(req, res) {
+    const product = {
+        name: "Test Data",
+        description: "new data entry",
+        price: 12
+    }
+    const newProduct = ProductModal.create(product);
+    res.writeHead(201, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(newProduct));
+}
 module.exports = {
     getProducts,
-    getProduct
+    getProduct,
+    createProduct
 }
