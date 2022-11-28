@@ -1,6 +1,6 @@
 const products = require('../data/products.json');
-const {v4: uuidv4} = require('uuid')
-
+const {v4: uuidv4} = require('uuid');
+const { writeDataToFile } = require('../utils');
 function findAll() {
     return new Promise((resolve, reject) => {
         resolve(products);
@@ -21,6 +21,7 @@ function create(payload) {
             ...payload
         }
         products.push(newProduct);
+        writeDataToFile('./data/products.json', JSON.stringify(products))
         resolve(newProduct);
     })
 }
