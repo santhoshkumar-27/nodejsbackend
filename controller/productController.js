@@ -50,7 +50,7 @@ async function createProduct(req, res) {
         description: "new data entry",
         price: 12
     }
-    const newProduct = ProductModal.create(product);
+    const newProduct = await ProductModal.create(product);
     res.writeHead(201, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify(newProduct));
 }

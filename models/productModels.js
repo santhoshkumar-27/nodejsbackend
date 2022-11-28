@@ -20,7 +20,8 @@ function create(payload) {
             id: uuidv4(),
             ...payload
         }
-        resolve(resultObj);
+        products.push(newProduct);
+        resolve(newProduct);
     })
 }
 module.exports = {
