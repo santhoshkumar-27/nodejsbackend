@@ -1,6 +1,8 @@
 // console.log('hello world');
-const products = require('./data/products.json');
+// const products = require('./data/products.json');
 const http = require('http');
+const { getProducts } = require('./controller/productController');
+const { requestMethods } = require('./shared/constant');
 
 const server = http.createServer((req, res) => {
     const url = req.url;
@@ -12,15 +14,16 @@ const server = http.createServer((req, res) => {
     // res.writeHead(200, { 'Content-Type': 'application/json'});
     // res.end(JSON.stringify(products));
     // console.log(req.url, req.method);
-    // if (url === '/api/products' && reqMethod === 'GET') {
-    //     res.writeHead(200, { 'Content-Type': 'application/json'});
-    //     res.end(JSON.stringify(products));
-    // } else {
-    //     res.writeHead(404, { 'Content-Type': 'application/json'});
-    //     res.end(JSON.stringify({
-    //         message: 'The route not found'
-    //     }));
-    // }
+    if (url === '/api/products' && reqMethod === requestMethods.GET) {
+        getProducts(req, res);
+        // res.writeHead(200, { 'Content-Type': 'application/json'});
+        // res.end(JSON.stringify(products));
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify({
+            message: 'The route not found'
+        }));
+    }
 
 });
 
