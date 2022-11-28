@@ -34,5 +34,11 @@
         "name": "Test Data",
         "description": "new data entry",
         "price": 12
+    },
+    {
+        "id": "91b75b0e-c7ef-4e63-a51f-a091e2ff2ff1",
+        "name": "Teddy bear",
+        "description": "Teddy bear for a girl who likes very much",
+        "price": 12.99
     }
 ]

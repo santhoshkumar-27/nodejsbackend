@@ -45,14 +45,23 @@ async function getProduct(req, res, id) {
  * @returns Inserted Data with Id
  */
 async function createProduct(req, res) {
-    const product = {
-        name: "Test Data",
-        description: "new data entry",
-        price: 12
-    }
-    const newProduct = await ProductModal.create(product);
-    res.writeHead(201, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(newProduct));
+    // const product = {
+    //     name: "Test Data",
+    //     description: "new data entry",
+    //     price: 12
+    // }
+    let product = '';
+    req.on('data', (chunck) => {
+        product = JSON.parse(chunck.toString());
+    })
+    req.on('end', async () => {
+        const newProduct = await ProductModal.create(product);
+        res.writeHead(201, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(newProduct));
+    })
+    // const newProduct = await ProductModal.create(product);
+    // res.writeHead(201, { 'Content-Type': 'application/json'});
+    // res.end(JSON.stringify(newProduct));
 }
 module.exports = {
     getProducts,
