@@ -3,22 +3,20 @@
 const http = require('http');
 const { getProducts } = require('./controller/productController');
 const { requestMethods } = require('./shared/constant');
+const { getProdRegex } = require('./shared/regexUrl');
+const { urlMatch } = require('./shared/urlMatch');
 
 const server = http.createServer((req, res) => {
     const url = req.url;
     const reqMethod = req.method;
-    // res.statusCode = 200;
-    // res.setHeader('Content-Type', 'text/html');
-    // res.write('<h1>Hello world</h1>');
-    // res.end();
-    // res.writeHead(200, { 'Content-Type': 'application/json'});
-    // res.end(JSON.stringify(products));
-    // console.log(req.url, req.method);
     if (url === '/api/products' && reqMethod === requestMethods.GET) {
         getProducts(req, res);
-        // res.writeHead(200, { 'Content-Type': 'application/json'});
-        // res.end(JSON.stringify(products));
-    } else {
+    } else if (urlMatch(url, getProducts) && requestMethods.GET) {
+        const id = parseFloat(urlMatch(url, getProducts)[1]);
+        console.log(id);
+        // getProducts()
+    }
+    else {
         res.writeHead(404, { 'Content-Type': 'application/json'});
         res.end(JSON.stringify({
             message: 'The route not found'
