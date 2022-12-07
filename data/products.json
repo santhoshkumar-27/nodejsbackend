@@ -58,5 +58,11 @@
         "name": "JCB",
         "description": "JCB is the most favourable toy amoung the childrens, espically boys",
         "price": 30
+    },
+    {
+        "id": "fd2d2ae3-a498-496c-bc4b-d07207c6ac37",
+        "name": "Wired remote car",
+        "description": "wired remote car is the most favourable toy amoung the childrens, espically boys",
+        "price": 14
     }
 ]
