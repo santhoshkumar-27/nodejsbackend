@@ -50,26 +50,30 @@ async function getProduct(req, res, id) {
  * @payload { name: "Test Data", description: "test description", price: test prize }
  */
 async function createProduct(req, res) {
-
     const body = await getBodyString(req);
-
     const product = await ProductModal.create(body);
     res.writeHead(201, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify(product));
 }
 /**
- * @descritpion updating data with id
+ * @descritpion updating data with id or if id not found it will create a new entry
  * @param req
  * @param res
- * @returns updated Data
+ * @returns updated Data with message
  * @API api/updateProduct/:id
  * @Method PUT
  */
 async function updateProduct(req, res, id) {
-    const body = await getBodyString(req);
-    const response = await ProductModal.update(id, body);
-    res.writeHead(200, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(updateMessage('Product', response)));
+    const resultObj = await ProductModal.findById(id);
+    if (resultObj) {
+        const body = await getBodyString(req);
+        const response = await ProductModal.update(id, body);
+        res.writeHead(200, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(updateMessage('Product', response)));
+    } else {
+        createProduct(res, res);
+    }
+
 }
 module.exports = {
     getProducts,
