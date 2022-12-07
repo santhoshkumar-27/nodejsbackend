@@ -1,6 +1,6 @@
 const ProductModal = require('../models/productModels');
 const { errorMessage } = require('../shared/errorHandlingfile');
-
+const { getBodyString } = require('../shared/getBodyString');
 /**
  * @descritpion Get all products from the collection of products
  * @param req
@@ -50,10 +50,11 @@ async function createProduct(req, res) {
     //     description: "new data entry",
     //     price: 12
     // }
-    let product = '';
-    req.on('data', (chunck) => {
-        product = JSON.parse(chunck.toString());
-    })
+    // let product = '';
+    // req.on('data', (chunck) => {
+    //     product = JSON.parse(chunck.toString());
+    // })
+    let product = await getBodyString(req);
     req.on('end', async () => {
         const newProduct = await ProductModal.create(product);
         res.writeHead(201, { 'Content-Type': 'application/json'});
