@@ -52,5 +52,11 @@
         "name": "choco-boy-toy",
         "description": "venkatesh is one of the big rugged-boy-toy",
         "price": 9
+    },
+    {
+        "id": "0347873b-0330-4882-9b44-e53b58b1274f",
+        "name": "JCB",
+        "description": "JCB is the most favourable toy amoung the childrens, espically boys",
+        "price": 30
     }
 ]

@@ -6,6 +6,14 @@ function getBodyString(req) {
     })
 }
 
+function processBody(req, res, func, data) {
+    return new Promise((resolve, reject) => {
+        req.on('end', () => {
+            func(res, data)
+        })
+    })
+}
 module.exports = {
     getBodyString,
+    processBody
 }

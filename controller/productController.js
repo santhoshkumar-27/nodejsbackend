@@ -1,6 +1,6 @@
 const ProductModal = require('../models/productModels');
 const { errorMessage } = require('../shared/errorHandlingfile');
-const { getBodyString } = require('../shared/getBodyString');
+const { getBodyString, processBody } = require('../shared/getBodyString');
 /**
  * @descritpion Get all products from the collection of products
  * @param req
@@ -55,14 +55,20 @@ async function createProduct(req, res) {
     //     product = JSON.parse(chunck.toString());
     // })
     let product = await getBodyString(req);
-    req.on('end', async () => {
-        const newProduct = await ProductModal.create(product);
-        res.writeHead(201, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(newProduct));
-    })
+    processBody(req, res, sendData, product);
+    // req.on('end', async () => {
+    //     const newProduct = await ProductModal.create(product);
+    //     res.writeHead(201, { 'Content-Type': 'application/json'});
+    //     res.end(JSON.stringify(newProduct));
+    // })
     // const newProduct = await ProductModal.create(product);
     // res.writeHead(201, { 'Content-Type': 'application/json'});
     // res.end(JSON.stringify(newProduct));
+}
+async function sendData(res, product) {
+    const newProduct = await ProductModal.create(product);
+    res.writeHead(201, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(newProduct));
 }
 module.exports = {
     getProducts,
