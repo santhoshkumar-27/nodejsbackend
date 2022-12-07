@@ -3,7 +3,14 @@ function errorMessage(message) {
         message : `${message} not found`
     }
 }
+function updateMessage(message, payload) {
+    return {
+        message : `${message} updated`, 
+        data: payload
+    }
+}
 
 module.exports = {
-    errorMessage
+    errorMessage,
+    updateMessage
 }

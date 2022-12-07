@@ -1,5 +1,5 @@
 const ProductModal = require('../models/productModels');
-const { errorMessage } = require('../shared/errorHandlingfile');
+const { errorMessage, updateMessage } = require('../shared/errorHandlingfile');
 const { getBodyString, processBody } = require('../shared/getBodyString');
 /**
  * @descritpion Get all products from the collection of products
@@ -57,13 +57,19 @@ async function createProduct(req, res) {
     res.writeHead(201, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify(product));
 }
-
+/**
+ * @descritpion updating data with id
+ * @param req
+ * @param res
+ * @returns updated Data
+ * @API api/updateProduct/:id
+ * @Method PUT
+ */
 async function updateProduct(req, res, id) {
     const body = await getBodyString(req);
     const response = await ProductModal.update(id, body);
-
-    res.writeHead(201, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(response));
+    res.writeHead(200, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(updateMessage('Product', response)));
 }
 module.exports = {
     getProducts,
