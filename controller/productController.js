@@ -6,6 +6,7 @@ const { getBodyString, processBody } = require('../shared/getBodyString');
  * @param req
  * @param res
  * @API api/getProducts
+ * @Method GET
  * @returns all products
  */
 async function getProducts(req, res) {
@@ -22,6 +23,7 @@ async function getProducts(req, res) {
  * @param req
  * @param res
  * @API api/getProducts/:id
+ * @Method GET
  * @returns single product
  */
 async function getProduct(req, res, id) {
@@ -43,34 +45,17 @@ async function getProduct(req, res, id) {
  * @param req
  * @param res
  * @returns Inserted Data with Id
+ * @API api/createProduct
+ * @Method POST
+ * @payload { name: "Test Data", description: "test description", price: test prize }
  */
 async function createProduct(req, res) {
-    // const product = {
-    //     name: "Test Data",
-    //     description: "new data entry",
-    //     price: 12
-    // }
-    // let product = '';
-    // req.on('data', (chunck) => {
-    //     product = JSON.parse(chunck.toString());
-    // })
-    let product = await getBodyString(req);
-    let process = await processBody(req, sendData);
-    process(res, product)
-    // console.log(process(res, product))
-    // req.on('end', async () => {
-    //     const newProduct = await ProductModal.create(product);
-    //     res.writeHead(201, { 'Content-Type': 'application/json'});
-    //     res.end(JSON.stringify(newProduct));
-    // })
-    // const newProduct = await ProductModal.create(product);
-    // res.writeHead(201, { 'Content-Type': 'application/json'});
-    // res.end(JSON.stringify(newProduct));
-}
-async function sendData(res, product) {
-    const newProduct = await ProductModal.create(product);
+
+    const body = await getBodyString(req);
+
+    const product = await ProductModal.create(body);
     res.writeHead(201, { 'Content-Type': 'application/json'});
-    res.end(JSON.stringify(newProduct));
+    res.end(JSON.stringify(product));
 }
 module.exports = {
     getProducts,

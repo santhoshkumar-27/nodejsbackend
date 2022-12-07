@@ -1,27 +1,18 @@
 function getBodyString(req) {
     return new Promise((resolve, reject) => {
         try {
+            let body = '';
             req.on('data', (chunck) => {
-                resolve(JSON.parse(chunck.toString()))
+                body = JSON.parse(chunck.toString())
+            })
+            req.on('end', () => {
+                resolve(body);
             })
         } catch (error) {
             reject(error)
         }
     })
 }
-
-function processBody(req, func) {
-    return new Promise((resolve, reject) => {
-        try {
-            req.on('end', () => {
-                resolve(func);
-            })
-        } catch (error) {
-            reject(error);
-        }
-    })
-}
 module.exports = {
     getBodyString,
-    processBody
 }
