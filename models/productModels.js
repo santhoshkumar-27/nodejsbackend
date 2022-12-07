@@ -1,6 +1,7 @@
 const products = require('../data/products.json');
 const {v4: uuidv4} = require('uuid');
 const { writeDataToFile } = require('../utils');
+
 function findAll() {
     return new Promise((resolve, reject) => {
         resolve(products);
@@ -25,8 +26,21 @@ function create(payload) {
         resolve(newProduct);
     })
 }
+
+function update(id, body) {
+    const index = products.findIndex((product) => product.id === id);
+    const data = products[index];
+    const payload = {
+        ...data,
+        ...body
+    }
+    products.splice(index, 1, payload)
+    writeDataToFile('./data/products.json', JSON.stringify(products))
+    return payload;
+}
 module.exports = {
     findAll,
     findById,
-    create
+    create,
+    update
 }

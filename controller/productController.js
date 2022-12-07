@@ -57,8 +57,17 @@ async function createProduct(req, res) {
     res.writeHead(201, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify(product));
 }
+
+async function updateProduct(req, res, id) {
+    const body = await getBodyString(req);
+    const response = await ProductModal.update(id, body);
+
+    res.writeHead(201, { 'Content-Type': 'application/json'});
+    res.end(JSON.stringify(response));
+}
 module.exports = {
     getProducts,
     getProduct,
-    createProduct
+    createProduct,
+    updateProduct
 }
