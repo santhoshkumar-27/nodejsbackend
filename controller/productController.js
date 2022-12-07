@@ -55,7 +55,9 @@ async function createProduct(req, res) {
     //     product = JSON.parse(chunck.toString());
     // })
     let product = await getBodyString(req);
-    processBody(req, res, sendData, product);
+    let process = await processBody(req, sendData);
+    process(res, product)
+    // console.log(process(res, product))
     // req.on('end', async () => {
     //     const newProduct = await ProductModal.create(product);
     //     res.writeHead(201, { 'Content-Type': 'application/json'});
