@@ -1,6 +1,6 @@
 function errorMessage(message) {
     return {
-        message : `${message} not found`
+        message
     }
 }
 function updateMessage(message, payload) {

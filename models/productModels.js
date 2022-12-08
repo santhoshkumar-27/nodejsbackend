@@ -28,15 +28,17 @@ function create(payload) {
 }
 
 function update(id, body) {
-    const index = products.findIndex((product) => product.id === id);
-    const data = products[index];
-    const payload = {
-        ...data,
-        ...body
-    }
-    products.splice(index, 1, payload)
-    writeDataToFile('./data/products.json', JSON.stringify(products))
-    return payload;
+    return new Promise((resolve, reject) => {
+        const index = products.findIndex((product) => product.id === id);
+        const data = products[index];
+        const payload = {
+            ...data,
+            ...body
+        };
+        products.splice(index, 1, payload)
+        writeDataToFile('./data/products.json', JSON.stringify(products))
+        resolve(payload);
+    })
 }
 module.exports = {
     findAll,

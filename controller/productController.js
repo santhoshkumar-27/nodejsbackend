@@ -34,7 +34,7 @@ async function getProduct(req, res, id) {
             res.end(JSON.stringify(resultObj));
         } else {
             res.writeHead(404, { 'Content-Type': 'application/json'});
-            res.end(JSON.stringify(errorMessage('Product')));
+            res.end(JSON.stringify(errorMessage('Product Not Found')));
         }
     } catch(e) {
         console.log(e)
@@ -71,7 +71,8 @@ async function updateProduct(req, res, id) {
         res.writeHead(200, { 'Content-Type': 'application/json'});
         res.end(JSON.stringify(updateMessage('Product', response)));
     } else {
-        createProduct(res, res);
+        res.writeHead(404, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(errorMessage('Unable to get Product invalid ID')));
     }
 
 }
