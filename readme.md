@@ -23,3 +23,6 @@ and configure the package.json
 
 ### uuid 
  npm install uuid
+
+### dotenv
+ npm i dotenv
