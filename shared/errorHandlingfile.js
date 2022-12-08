@@ -3,10 +3,10 @@ function errorMessage(message) {
         message
     }
 }
-function updateMessage(message, payload) {
+function updateMessage(message, data) {
     return {
-        message : `${message} updated`, 
-        data: payload
+        message,
+        data
     }
 }
 

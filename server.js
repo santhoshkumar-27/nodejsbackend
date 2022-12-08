@@ -1,8 +1,8 @@
 
 const http = require('http');
-const { getProducts, getProduct, createProduct, updateProduct } = require('./controller/productController');
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('./controller/productController');
 const { requestMethods } = require('./shared/constant');
-const { getProdRegex, updateProdRegex } = require('./shared/regexUrl');
+const { getProdRegex, updateProdRegex, deleteProdRegex } = require('./shared/regexUrl');
 const { urlMatch } = require('./shared/urlMatch');
 const { errorMessage } = require('./shared/errorHandlingfile');
 const { productURl } = require('./shared/collectionURL')
@@ -13,14 +13,21 @@ const server = http.createServer((req, res) => {
     const reqMethod = req.method;
     if (url === productURl.get && reqMethod === requestMethods.GET) {
         getProducts(req, res);
-    } else if (urlMatch(url, getProdRegex) && requestMethods.GET) {
+    }
+    else if (urlMatch(url, getProdRegex) && requestMethods.GET) {
         const id = urlMatch(url, getProdRegex)[1];
         getProduct(req, res, id);
-    } else if (url === productURl.post && requestMethods.POST) {
+    }
+    else if (url === productURl.post && requestMethods.POST) {
         createProduct(req, res);
-    } else if (urlMatch(url, updateProdRegex) && requestMethods.PUT) {
+    }
+    else if (urlMatch(url, updateProdRegex) && requestMethods.PUT) {
         const id = urlMatch(url, updateProdRegex)[1];
         updateProduct(req, res, id);
+    }
+    else if (urlMatch(url, deleteProdRegex) && requestMethods.DELETE) {
+        const id = urlMatch(url, deleteProdRegex)[1];
+        deleteProduct(req, res, id);
     }
     else {
         res.writeHead(404, { 'Content-Type': 'application/json' });

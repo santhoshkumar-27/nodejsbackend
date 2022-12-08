@@ -69,10 +69,30 @@ async function updateProduct(req, res, id) {
         const body = await getBodyString(req);
         const response = await ProductModal.update(id, body);
         res.writeHead(200, { 'Content-Type': 'application/json'});
-        res.end(JSON.stringify(updateMessage('Product', response)));
+        res.end(JSON.stringify(updateMessage('Product Updated Successfully', response)));
     } else {
         res.writeHead(404, { 'Content-Type': 'application/json'});
         res.end(JSON.stringify(errorMessage('Unable to get Product invalid ID')));
+    }
+
+}
+/**
+ * @descritpion Delete product based on the id
+ * @param req
+ * @param res
+ * @returns success message or not found
+ * @API api/deleteProduct/:id
+ * @Method DELETE
+ */
+ async function deleteProduct(req, res, id) {
+    const resultObj = await ProductModal.findById(id);
+    if (resultObj) {
+        const response = await ProductModal.deleteProduct(id);
+        res.writeHead(200, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(errorMessage('Product Deleted Successfully')));
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify(errorMessage('Product not found')));
     }
 
 }
@@ -80,5 +100,6 @@ module.exports = {
     getProducts,
     getProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }
