@@ -1,10 +1,12 @@
 const products = require('../data/products.json');
 const {v4: uuidv4} = require('uuid');
 const { writeDataToFile } = require('../utils');
+const { sendNativeQuery } = require('../database');
 
-function findAll() {
-    return new Promise((resolve, reject) => {
-        resolve(products);
+ function findAll() {
+    return new Promise(async (resolve, reject) => {
+        const dbProducts = await sendNativeQuery('SELECT * FROM product');
+        resolve(dbProducts);
     })
 }
 

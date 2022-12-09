@@ -7,21 +7,23 @@ dotenv.config();
 
 const pool = createPool({
     host: process.env.HOST,
-    user: process.env.user,
-    password: process.env.password,
-    database: `demoLearning`,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASENAME,
     connectionLimit: 10
 })
 
 
 function sendNativeQuery(query) {
-    pool.query(query, (error, result, field) => {
-        if (error) {
-            return error;
-        };
-        if (result) {
-            return result;
-        }
+    return new Promise((resolve, reject) => {
+        pool.query(query, (error, result, field) => {
+            if (error) {
+                reject(error);
+            };
+            if (result) {
+                resolve(result)
+            }
+        })
     })
 }
 module.exports = {
