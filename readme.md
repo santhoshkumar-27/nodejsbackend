@@ -26,3 +26,6 @@ and configure the package.json
 
 ### dotenv
  npm i dotenv
+
+### db install
+ npm i mysql

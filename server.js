@@ -6,6 +6,7 @@ const { getProdRegex, updateProdRegex, deleteProdRegex } = require('./shared/reg
 const { urlMatch } = require('./shared/urlMatch');
 const { errorMessage } = require('./shared/errorHandlingfile');
 const { productURl } = require('./shared/collectionURL')
+const { pool } = require('./database')
 const dotenv = require('dotenv');
 dotenv.config();
 
