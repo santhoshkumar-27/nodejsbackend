@@ -11,8 +11,9 @@ const { sendNativeQuery } = require('../database');
 }
 
 function findById(id) {
-    return new Promise((resolve, reject) => {
-        const resultObj = products.find((product) => product.id === id);
+    return new Promise(async (resolve, reject) => {
+        const dbProducts = await findAll();
+        const resultObj = (dbProducts || []).find((product) => product.id === id);
         resolve(resultObj);
     })
 }
