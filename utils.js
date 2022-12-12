@@ -7,7 +7,20 @@ function writeDataToFile(fileName, content) {
         }
     })
 }
-
+function constructUpdateQuery(payload, model) {
+    let query =''
+    for (const key in payload) {
+        if (!model.hasOwnProperty(key)) {
+            return true;
+        }
+        query += `${key} = `;
+        query += typeof payload[key] === 'string' ? 
+        `'${payload[key]}'` : typeof payload[key] === 'number' 
+        ? `${payload[key]}` : `${payload[key]}`;
+    }
+    return query;
+}
 module.exports = {
-    writeDataToFile
+    writeDataToFile,
+    constructUpdateQuery
 }
