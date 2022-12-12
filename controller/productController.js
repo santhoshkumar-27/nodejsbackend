@@ -80,7 +80,8 @@ async function updateProduct(req, res, id) {
             res.end(JSON.stringify(errorMessage('Unable to get Product invalid ID')));
         }
     } catch (e) {
-        console.log(e);
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(e));
     }
 
 }

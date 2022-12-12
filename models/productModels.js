@@ -35,15 +35,19 @@ function create(payload) {
 
 function update(id, body) {
     return new Promise(async (resolve, reject) => {
-        const payload = constructUpdateQuery(body, model);
-        const query = `UPDATE product SET ${payload} WHERE id = ${id};`;
-        const dbProducts = await sendNativeQuery(query);
-        let product;
-        if (dbProducts) {
-            product = await sendNativeQuery(`SELECT * FROM product where id = ${dbProducts.insertId}`)[0]
-            resolve(product);
+        const {condition , constructedQuery} = constructUpdateQuery(body, model);
+        if (condition) {            
+            const query = `UPDATE product SET ${constructedQuery} WHERE id = ${id};`;
+            const dbProducts = await sendNativeQuery(query);
+            let product;
+            if (dbProducts) {
+                product = await sendNativeQuery(`SELECT * FROM product where id = ${id}`)
+                resolve(product);
+            } else {
+                reject(errorMessage('Unable to update Product'))
+            }
         } else {
-            reject(errorMessage('Unable to update Product'))
+            reject(errorMessage(constructedQuery));
         }
     })
 }

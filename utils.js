@@ -11,14 +11,20 @@ function constructUpdateQuery(payload, model) {
     let query =''
     for (const key in payload) {
         if (!model.hasOwnProperty(key)) {
-            return true;
+            return {
+                condition: false,
+                constructedQuery: 'Invalid Field'
+            };
         }
         query += `${key} = `;
         query += typeof payload[key] === 'string' ? 
         `'${payload[key]}'` : typeof payload[key] === 'number' 
         ? `${payload[key]}` : `${payload[key]}`;
     }
-    return query;
+    return {
+        condition: true,
+        constructedQuery: query
+    };;
 }
 module.exports = {
     writeDataToFile,
