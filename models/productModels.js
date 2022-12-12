@@ -1,5 +1,5 @@
 const products = require('../data/products.json');
-const { errorMessage, updateMessage } = require('../shared/errorHandlingfile');
+const { errorMessage } = require('../shared/errorHandlingfile');
 const {v4: uuidv4} = require('uuid');
 const { writeDataToFile, constructUpdateQuery } = require('../utils');
 const { sendNativeQuery } = require('../database');
