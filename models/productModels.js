@@ -52,11 +52,14 @@ function update(id, body) {
     })
 }
 function deleteProduct(id) {
-    return new Promise((resolve, reject) => {
-        const index = products.findIndex((product) => product.id === id);
-        products.splice(index, 1)
-        writeDataToFile('./data/products.json', JSON.stringify(products))
-        resolve();
+    return new Promise(async(resolve, reject) => {
+        try {
+            const query = `DELETE FROM product WHERE  id = ${id};`;
+            const dbProducts = await sendNativeQuery(query);
+            resolve();
+        } catch (e) {
+            reject(e)
+        }
     })
 }
 module.exports = {
