@@ -1,6 +1,6 @@
 
 const http = require('http');
-const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require('./controller/productController');
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct, sendEventStreamResponse } = require('./controller/productController');
 const { requestMethods } = require('./shared/constant');
 const { getProdRegex, updateProdRegex, deleteProdRegex } = require('./shared/regexUrl');
 const { urlMatch } = require('./shared/urlMatch');
@@ -15,6 +15,9 @@ const server = http.createServer((req, res) => {
     const reqMethod = req.method;
     if (url === productURl.get && reqMethod === requestMethods.GET) {
         getProducts(req, res);
+    }
+    else if (url === productURl.eventStream && reqMethod === requestMethods.GET) {
+        sendEventStreamResponse(req, res)
     }
     else if (urlMatch(url, getProdRegex) && requestMethods.GET) {
         const id = urlMatch(url, getProdRegex)[1];
@@ -40,3 +43,13 @@ const server = http.createServer((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => console.log(`Server is running on the port ${PORT}`))
+
+
+// const eventSource = new EventSource('http://localhost:5000/api/eventStream');
+
+// eventSource.addEventListener('message', (event) => {
+//   console.log(event.data);
+// });
+// fetch('http://localhost:5000/api/eventStream').then((value) => {
+//     console.log('value',value);
+// })

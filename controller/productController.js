@@ -104,15 +104,30 @@ async function deleteProduct(req, res, id) {
             res.writeHead(404, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(errorMessage('Product not found')));
         }
-    } catch(e) {
+    } catch (e) {
         console.log(e);
     }
 
+}
+function sendEventStreamResponse(req, res) {
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
+
+    // send event every second
+    setTimeout(() => {
+        res.write(`event: message\n`);
+        res.write(`data: ${new Date().toISOString()}\n\n`);
+        res.ok()
+    }, 1000);
 }
 module.exports = {
     getProducts,
     getProduct,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    sendEventStreamResponse
 }
